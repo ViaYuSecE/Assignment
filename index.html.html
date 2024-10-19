@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    <title>Anime Quote Generator</title>
+
+    <style>
+        body {
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: #1a73e8;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            margin: auto;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+            flex: 1;
+        }
+
+        #image {
+            width: 200px;
+            height: auto;
+            margin-right: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Anime Quote Generator</h1>
+
+    <div class="card">
+        <img id="image" src="" alt="No image">
+        <div class="container">
+            <image src="quotation-marks.png" style="width:10%; padding-top: 30px; padding-bottom: 20px;"/>
+            <h2 id="quote">Loading...</h2>
+            <br>
+            <h3 id="character">Loading...</h3>
+        </div>
+    </div>
+
+    <br>
+    <button id="newQuoteButton">New Quote</button>
+
+    <script>
+        const url = 'https://anime-quotes5.p.rapidapi.com/api.php?random=random';
+        const options = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-key': 'b2f246e9cdmsh384cffe58a658a2p1433d1jsnafc6c9e1ddc1',
+                'x-rapidapi-host': 'anime-quotes5.p.rapidapi.com'
+            }
+        };
+
+        async function fetchQuote() {
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                //console.log(result)
+
+                const quoteData = result[0];
+
+                const quote = quoteData.quote;
+                const character = quoteData.character;
+                const anime = quoteData.anime;
+                const image = quoteData.character_thumbnail_url;
+
+                document.getElementById('quote').innerText = `"${quote}"`;
+                document.getElementById('character').innerText = `- ${character} (${anime})`;
+                document.getElementById('image').src = image;
+            } catch (error) {
+                console.error(error);
+                document.getElementById('quote').innerText = 'Error fetching quote.';
+            }
+        }
+
+        document.getElementById('newQuoteButton').addEventListener('click', fetchQuote);
+
+        // fetchQuote();
+    </script>
+</body>
+
+</html>
