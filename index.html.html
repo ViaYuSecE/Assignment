@@ -15,21 +15,21 @@
         body {
             font-family: "Quicksand", sans-serif;
             text-align: center;
-            padding: 20px;
+            background-color: #F8F9FA;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 32px;
+            color: #202124;
         }
 
         h2 {
-            font-size: 1.5rem;
-            color: #555;
-            margin: 20px 0;
+            font-size: 24px;
+            color: #5F6368;
         }
 
         h3 {
-            font-size: 1rem;
+            font-size: 16px;
             color: #1a73e8;
         }
 
@@ -54,28 +54,59 @@
             background-color: #4C8DF6;
         }
 
-        .card {
+        .flex-container {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             transition: 0.3s;
             width: 50%;
             display: flex;
             align-items: center;
             margin: auto;
+            flex-direction: row;
+            background-color: white;
         }
 
-        .card:hover {
+        .flex-container:hover {
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
-        .container {
-            padding: 2px 16px;
-            flex: 1;
+        .flex-item-1 {
+            padding: 0px;
+        }
+
+        .flex-item-2 {
+            padding: 10px;
         }
 
         #image {
             width: 200px;
             height: auto;
             margin-right: 16px;
+            display: block;
+            overflow: hidden;
+        }
+
+        @media only screen and (max-width: 1024px) {
+            .flex-container {
+                width: 80%;
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            h3 {
+                font-size: 12px;
+                padding: 3vw;
+            }
+
+            #image {
+                margin-right: 0px;
+            }
         }
     </style>
 </head>
@@ -83,12 +114,13 @@
 <body>
     <h1>Anime Quotes Generator</h1>
 
-    <div class="card">
-        <img id="image" src="" alt="No image">
-        <div class="container">
-            <image src="quotation-marks.png" style="width:10%; padding-top: 30px; padding-bottom: 20px;"/>
+    <div class="flex-container">
+        <div class="flex-item-1">
+            <img id="image" src="no-photo.png">
+        </div>
+        <div class="flex-item-2">
+            <image src="quotation-marks.png" style="width:10%; padding-top: 10px; padding-bottom: 20px;" />
             <h2 id="quote">Loading...</h2>
-            <br>
             <h3 id="character">Loading...</h3>
         </div>
     </div>
@@ -130,7 +162,7 @@
 
         document.getElementById('newQuoteButton').addEventListener('click', fetchQuote);
 
-        // fetchQuote();
+        fetchQuote();
     </script>
 </body>
 
